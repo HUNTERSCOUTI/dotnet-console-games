@@ -149,8 +149,9 @@ class Route1 : MapBase
 					{
 						BattleTransition.Random();
 					}
+
 					BattleScreen.Render(partyMonsters[0], MonsterBase.GetRandom());
-					//Battle();
+					Battle(partyMonsters[0]);
 					ConsoleHelper.PressToContinue();
 				}
 				break;

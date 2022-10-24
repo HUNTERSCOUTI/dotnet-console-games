@@ -3,16 +3,14 @@
 public class BattleSystem
 {
 	// TEMP FOR DEVELOPMENT, YES VERY MESSY, PLEASE FIX
-	public static FireLizard FireLizard { get; set; } = new();
-	public static Turtle Turtle { get; set; } = new();
 
-	public static MonsterBase PlayerMonster { get; set; } = Turtle;
-	public static MonsterBase OpponentMonster { get; set; } = FireLizard;
+	//public static MonsterBase PlayerMonster { get; set; }
+	//public static MonsterBase OpponentMonster { get; set; }
 
 	public static MonsterBase? AttackingMonster { get; set; }
 	public static MonsterBase? DefendingMonster { get; set; }
 
-	public static void Battle()
+	public static void Battle(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 	{
 		bool playerTurn = true;
 		bool battleOver = false;
@@ -21,7 +19,7 @@ public class BattleSystem
 		{
 			playerTurn = false;
 		}
-		DrawStats(playerTurn);
+		DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 		while (!battleOver)
 		{
 			if (playerTurn)
@@ -42,7 +40,7 @@ public class BattleSystem
 					PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
 					OpponentMonster.CurrentHP -= (int)playerMove.FinalDamage;
 					playerTurn = false;
-					DrawStats(playerTurn);
+					DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 				}
 			}
 			if (!playerTurn)
@@ -62,12 +60,12 @@ public class BattleSystem
 					OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
 					PlayerMonster.CurrentHP -= (int)opponentMove.FinalDamage;
 					playerTurn = true;
-					DrawStats(playerTurn);
+					DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 				}
 			}
 		}
 
-		static void DrawStats(bool playerTurn)
+		static void DrawStats(bool playerTurn, MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 		{
 			//TEMP
 			Console.SetCursorPosition(63, 34);
